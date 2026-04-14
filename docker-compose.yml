@@ -1,0 +1,30 @@
+# Infraestructura local de base de datos para la POC.
+# Esta imagen ya incluye PostgreSQL + extension pgvector lista para usar.
+# Asi podemos guardar embeddings y hacer busqueda vectorial sin otro motor adicional.
+services:
+  postgres:
+    image: ankane/pgvector:latest
+    container_name: poc_asistente_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: asistente_poc
+      POSTGRES_USER: asistente_user
+      POSTGRES_PASSWORD: asistente_pass
+    ports:
+      # Expone PostgreSQL en localhost:5432 para conectarse desde el entorno local.
+      - "5432:5432"
+    volumes:
+      # Guarda los datos aunque se reinicie o recree el contenedor.
+      - pg_data:/var/lib/postgresql/data
+      # Monta las migraciones iniciales SQL.
+      # PostgreSQL las ejecuta automaticamente solo cuando el volumen esta vacio.
+      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U asistente_user -d asistente_poc"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  # Volumen nombrado para persistencia local segura.
+  pg_data:

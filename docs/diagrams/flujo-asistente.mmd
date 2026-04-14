@@ -1,0 +1,23 @@
+flowchart TD
+  A["Inicio de sesion"] --> B["Solicitar bastidor"]
+  B --> C{"Bastidor valido?"}
+  C -->|No| D["Respuesta controlada y reintento"]
+  D --> B
+  C -->|Si| E["Resolver modelo por VIN"]
+  E --> F["Mostrar menu principal"]
+  F --> G{"Ruta elegida"}
+
+  G -->|Sintomas frecuentes| H["Motor de arbol diagnostico"]
+  G -->|Consultas FAQ| I["FAQ matcher por modelo/categoria"]
+  G -->|Otros| J["Texto libre"]
+
+  J --> K["Normalizacion + extraccion de tags"]
+  K --> L["RAG vectorial en historical_cases y faqs"]
+  L --> M["Ranking hibrido top 3"]
+
+  H --> N["Respuesta estandar de diagnostico"]
+  I --> N
+  M --> N
+
+  N --> O["Persistir session_state/messages/decision_logs"]
+  O --> P["Solicitar feedback final"]
