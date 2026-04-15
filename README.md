@@ -71,7 +71,10 @@ Objetivo practico: que un cambio de proveedor, modulo o flujo no obligue a redis
 |-- database/
 |   `-- migrations/
 |-- docs/
-|   `-- DDT.md
+|   |-- DDT.md
+|   `-- diagrams/
+|       |-- flujo-asistente.mmd
+|       `-- database-er.mmd
 |-- frontend/
 |   |-- app/
 |   |-- components/
@@ -91,6 +94,7 @@ Objetivo practico: que un cambio de proveedor, modulo o flujo no obligue a redis
 | backend/app/db | Acceso a datos y modelos de persistencia. |
 | backend/app/modules | Modulos funcionales del DDT (orquestador, FAQ, arbol, otros, ranking, trazabilidad). |
 | database/migrations | SQL versionado para crear esquema y evolucionarlo por fases. |
+| docs/diagrams | Diagramas funcionales y de datos para revisar arquitectura antes de implementar. |
 
 Nota de alcance: en esta fase las carpetas existen para comunicar la arquitectura; su implementacion interna se construye en siguientes iteraciones.
 
@@ -115,6 +119,158 @@ Ventajas para esta fase:
 - misma base de datos para datos transaccionales y busqueda vectorial,
 - menos complejidad operativa (sin Elasticsearch/Pinecone/otro motor adicional),
 - facil de evolucionar luego a Supabase o PostgreSQL administrado.
+
+## Diagrama de base de datos (ER)
+
+Nota de preview:
+
+- Para ver solo el diagrama ER con extension Mermaid, abre [docs/diagrams/database-er.mmd](docs/diagrams/database-er.mmd).
+- Este diagrama representa el modelo SQL actual de [database/migrations/01_init.sql](database/migrations/01_init.sql).
+
+```mermaid
+erDiagram
+   VEHICLES {
+      varchar vin PK
+      varchar model
+      varchar family
+      int displacement_cc
+      varchar market
+      int model_year
+      timestamp created_at
+   }
+
+   FAQS {
+      int faq_id PK
+      varchar model
+      varchar category
+      text question
+      text answer
+      int usage_count
+      bool active
+      vector1536 embedding
+      timestamp created_at
+      timestamp updated_at
+   }
+
+   DIAGNOSTIC_TREES {
+      varchar tree_id PK
+      varchar model
+      varchar symptom
+      int version
+      jsonb tree_json
+      bool active
+      timestamp created_at
+      timestamp updated_at
+   }
+
+   HISTORICAL_CASES {
+      varchar case_id PK
+      varchar model
+      varchar symptom_category
+      text case_text
+      varchar final_diagnosis
+      numeric base_confidence
+      vector1536 embedding
+      timestamp created_at
+   }
+
+   SESSIONS {
+      uuid session_id PK
+      varchar vin FK
+      varchar model
+      varchar entry_point
+      varchar status
+      timestamp started_at
+      timestamp ended_at
+      int total_steps
+      varchar final_result
+      bool success
+   }
+
+   SESSION_STATE {
+      uuid session_id PK
+      varchar vin FK
+      varchar model
+      varchar current_symptom
+      varchar current_node
+      jsonb state_json
+      timestamp updated_at
+   }
+
+   MESSAGES {
+      bigint message_id PK
+      uuid session_id FK
+      varchar role
+      text content
+      timestamp created_at
+   }
+
+   DECISION_LOGS {
+      bigint log_id PK
+      uuid session_id FK
+      varchar module_name
+      jsonb input_data
+      jsonb output_data
+      timestamp created_at
+   }
+
+   FEEDBACK {
+      bigint feedback_id PK
+      uuid session_id FK
+      bool useful
+      text comment
+      timestamp created_at
+   }
+
+   VEHICLES ||--o{ SESSIONS : "vin"
+   VEHICLES ||--o{ SESSION_STATE : "vin"
+   SESSIONS ||--o| SESSION_STATE : "session_id"
+   SESSIONS ||--o{ MESSAGES : "session_id"
+   SESSIONS ||--o{ DECISION_LOGS : "session_id"
+   SESSIONS ||--o| FEEDBACK : "session_id"
+```
+
+## Como leer este diagrama ER
+
+Esta lectura corresponde al modelo de datos definido en la seccion 13.
+
+| Bloque | Tablas | Sentido en la POC |
+| --- | --- | --- |
+| Contexto tecnico base | VEHICLES, DIAGNOSTIC_TREES | VEHICLES identifica el modelo por bastidor; DIAGNOSTIC_TREES guarda los arboles guiados versionados. |
+| Conocimiento para respuestas | FAQS, HISTORICAL_CASES | Fuentes de consultas frecuentes y casos previos; ambas incluyen embedding para recuperacion semantica. |
+| Eje de la sesion | SESSIONS, SESSION_STATE | SESSIONS es la cabecera de cada conversacion y SESSION_STATE mantiene el estado vivo del flujo. |
+| Trazabilidad y control | MESSAGES, DECISION_LOGS | MESSAGES guarda turnos conversacionales y DECISION_LOGS registra decisiones tecnicas por modulo. |
+| Cierre y calidad | FEEDBACK | FEEDBACK guarda utilidad/comentario final para medir valor de la POC. |
+
+Relaciones clave del diagrama:
+
+- Un VEHICLE puede estar asociado a muchas SESSIONS.
+- Una SESSION tiene un unico SESSION_STATE activo.
+- Una SESSION tiene muchos MESSAGES y muchos DECISION_LOGS.
+- Una SESSION tiene como maximo un FEEDBACK final (relacion 1 a 1 opcional).
+
+Por que tiene sentido segun DDT:
+
+- Seccion 13: todas las entidades obligatorias estan representadas.
+- Seccion 21: la trazabilidad queda cubierta por MESSAGES y DECISION_LOGS.
+- Seccion 22: las metricas se pueden calcular desde SESSIONS, FEEDBACK y uso de rutas.
+
+Nota de alcance: el modelo actual prioriza claridad para POC; posibles optimizaciones se evaluan despues de validar flujo y metricas.
+
+## Trazabilidad, control y metricas (alineado con DDT)
+
+Este punto es obligatorio en la POC y se contempla desde la estructura de datos y arquitectura.
+
+| Area | Como se cubre en la arquitectura actual |
+| --- | --- |
+| Trazabilidad tecnica | Tabla decision_logs: guarda input/output por modulo y timestamp de cada decision. |
+| Trazabilidad conversacional | Tabla messages: guarda cada turno de usuario/asistente para reconstruccion completa. |
+| Control de estado | Tabla session_state: estado vivo de sesion (modelo, sintoma, nodo actual, state_json). |
+| Control de flujo | Regla de bastidor obligatorio y menu de rutas controladas definidos en el flujo funcional. |
+| Feedback de cierre | Tabla feedback: utilidad y comentario para evaluacion operativa. |
+| Metricas de uso | Endpoint objetivo /metrics/summary y KPIs definidos (FAQ/arbol/otros, tiempos, sesiones). |
+
+Resumen: no se implementa la logica aun, pero la base estructural para logs, metricas y control ya esta modelada.
 
 ## Por que hay muchos modulos en backend aunque esten vacios
 
@@ -234,10 +390,10 @@ Lectura rapida del flujo:
 
 | Semana | Objetivo | Entregables |
 | --- | --- | --- |
-| Semana 1 | Base tecnica y persistencia | Migraciones, dataset mock, scaffolding API/UI, sesion inicial. |
-| Semana 2 | Flujos guiados | Bastidor obligatorio, menu principal, arbol Paradas de motor y CELP simplificado. |
-| Semana 3 | Entrada libre y recuperacion | Modulo Otros, parser inicial, recuperacion vectorial, ranking top-3. |
-| Semana 4 | Cierre de POC y validacion | Trazabilidad completa, feedback, metricas, pruebas E2E y demo final. |
+| Semana 1 | Base tecnica y persistencia | Migraciones + diagrama ER, tablas de control (sessions/session_state), trazabilidad base (messages/decision_logs). |
+| Semana 2 | Flujos guiados y control operativo | Bastidor obligatorio, menu principal, arboles iniciales y logging por modulo en decisiones clave. |
+| Semana 3 | Entrada libre y medicion de uso | Modulo Otros, recuperacion vectorial, ranking top-3 y metrica de uso por ruta (FAQ/arbol/otros). |
+| Semana 4 | Cierre con observabilidad | Feedback final, endpoint /metrics/summary, validacion de logs, pruebas E2E y demo final. |
 
 ## Criterios de preparacion cumplidos en este repo
 

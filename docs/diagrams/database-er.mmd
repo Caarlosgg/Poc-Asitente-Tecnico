@@ -1,0 +1,100 @@
+erDiagram
+  VEHICLES {
+    varchar vin PK
+    varchar model
+    varchar family
+    int displacement_cc
+    varchar market
+    int model_year
+    timestamp created_at
+  }
+
+  FAQS {
+    int faq_id PK
+    varchar model
+    varchar category
+    text question
+    text answer
+    int usage_count
+    bool active
+    vector1536 embedding
+    timestamp created_at
+    timestamp updated_at
+  }
+
+  DIAGNOSTIC_TREES {
+    varchar tree_id PK
+    varchar model
+    varchar symptom
+    int version
+    jsonb tree_json
+    bool active
+    timestamp created_at
+    timestamp updated_at
+  }
+
+  HISTORICAL_CASES {
+    varchar case_id PK
+    varchar model
+    varchar symptom_category
+    text case_text
+    varchar final_diagnosis
+    numeric base_confidence
+    vector1536 embedding
+    timestamp created_at
+  }
+
+  SESSIONS {
+    uuid session_id PK
+    varchar vin FK
+    varchar model
+    varchar entry_point
+    varchar status
+    timestamp started_at
+    timestamp ended_at
+    int total_steps
+    varchar final_result
+    bool success
+  }
+
+  SESSION_STATE {
+    uuid session_id PK
+    varchar vin FK
+    varchar model
+    varchar current_symptom
+    varchar current_node
+    jsonb state_json
+    timestamp updated_at
+  }
+
+  MESSAGES {
+    bigint message_id PK
+    uuid session_id FK
+    varchar role
+    text content
+    timestamp created_at
+  }
+
+  DECISION_LOGS {
+    bigint log_id PK
+    uuid session_id FK
+    varchar module_name
+    jsonb input_data
+    jsonb output_data
+    timestamp created_at
+  }
+
+  FEEDBACK {
+    bigint feedback_id PK
+    uuid session_id FK
+    bool useful
+    text comment
+    timestamp created_at
+  }
+
+  VEHICLES ||--o{ SESSIONS : "vin"
+  VEHICLES ||--o{ SESSION_STATE : "vin"
+  SESSIONS ||--o| SESSION_STATE : "session_id"
+  SESSIONS ||--o{ MESSAGES : "session_id"
+  SESSIONS ||--o{ DECISION_LOGS : "session_id"
+  SESSIONS ||--o| FEEDBACK : "session_id"
