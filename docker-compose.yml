@@ -1,30 +1,68 @@
-# Infraestructura local de base de datos para la POC.
-# Esta imagen ya incluye PostgreSQL + extension pgvector lista para usar.
-# Asi podemos guardar embeddings y hacer busqueda vectorial sin otro motor adicional.
+version: '3.9'
+
 services:
   postgres:
-    image: ankane/pgvector:latest
-    container_name: poc_asistente_postgres
-    restart: unless-stopped
+    image: pgvector/pgvector:pg16
+    container_name: poc-postgres
     environment:
-      POSTGRES_DB: asistente_poc
-      POSTGRES_USER: asistente_user
-      POSTGRES_PASSWORD: asistente_pass
+      POSTGRES_DB: poc_asistente
+      POSTGRES_USER: poc_user
+      POSTGRES_PASSWORD: poc_password
     ports:
-      # Expone PostgreSQL en localhost:5432 para conectarse desde el entorno local.
       - "5432:5432"
     volumes:
-      # Guarda los datos aunque se reinicie o recree el contenedor.
-      - pg_data:/var/lib/postgresql/data
-      # Monta las migraciones iniciales SQL.
-      # PostgreSQL las ejecuta automaticamente solo cuando el volumen esta vacio.
-      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/migrations/init.sql:/docker-entrypoint-initdb.d/01_init.sql
+      - ./backend/db/seeds/vehicles.sql:/docker-entrypoint-initdb.d/02_vehicles.sql
+      - ./backend/db/seeds/faqs.sql:/docker-entrypoint-initdb.d/03_faqs.sql
+      - ./backend/db/seeds/diagnostic_trees.sql:/docker-entrypoint-initdb.d/04_trees.sql
+      - ./backend/db/seeds/historical_cases.sql:/docker-entrypoint-initdb.d/05_cases.sql
+      - ./backend/db/seeds/knowledge_chunks.sql:/docker-entrypoint-initdb.d/06_chunks.sql
+      - ./backend/db/seeds/consumo_tree.sql:/docker-entrypoint-initdb.d/07_consumo_tree.sql
+      - ./backend/db/seeds/vehicles_enrichment.sql:/docker-entrypoint-initdb.d/08_vehicles_enrichment.sql
+      - ./backend/db/seeds/faqs_enrichment.sql:/docker-entrypoint-initdb.d/09_faqs_enrichment.sql
+      - ./backend/db/seeds/historical_cases_enrichment.sql:/docker-entrypoint-initdb.d/10_cases_enrichment.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U asistente_user -d asistente_poc"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U poc_user -d poc_asistente"]
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: poc-backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://poc_user:poc_password@postgres:5432/poc_asistente
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      GROQ_MODEL: llama-3.1-8b-instant
+      GROQ_EMBEDDING_MODEL: nomic-embed-text-v1_5
+      SIMILARITY_THRESHOLD: "0.75"
+      MAX_VIN_ATTEMPTS: "3"
+      TOP_K_RESULTS: "3"
+      DEBUG: "true"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: on-failure
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # VITE_API_URL se bake en el bundle al hacer npm run build.
+        # En producción Docker, el browser accede al backend en localhost:8000.
+        VITE_API_URL: http://localhost:8000
+    container_name: poc-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
 
 volumes:
-  # Volumen nombrado para persistencia local segura.
-  pg_data:
+  postgres_data:

@@ -1,0 +1,33 @@
+# Entorno virtual Python — no copiar al contenedor Docker
+venv/
+.venv/
+env/
+
+# Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Tests y cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Herramientas de desarrollo
+.git/
+.gitignore
+.mypy_cache/
+.ruff_cache/
+
+# Editor
+.vscode/
+.idea/
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Variables de entorno locales (se inyectan desde docker-compose)
+.env

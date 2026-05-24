@@ -1,0 +1,94 @@
+"filename", "language", "Markdown", "JavaScript", "Shell Script", "PowerShell", "HTML", "Docker", "JSON", "Mermaid Radar", "Python", "YAML", "MS SQL", "JavaScript JSX", "PostCSS", "pip requirements", "Ini", "Ignore", "comment", "blank", "total"
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\PROJECT_CONTEXT.md", "Markdown", 938, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 134, 1072
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\PROJECT_CONTEXT2.md", "Markdown", 1017, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 125, 1142
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\README.md", "Markdown", 469, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 595
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\.dockerignore", "Ignore", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 7, 7, 34
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\Dockerfile", "Docker", 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 21
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\README.md", "Markdown", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\routes\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\routes\feedback.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 0, 10, 18, 99
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\routes\metrics.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 16, 16, 97
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\routes\session.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 273, 0, 0, 0, 0, 0, 0, 0, 39, 55, 367
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\schemas\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\schemas\feedback.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 3, 8, 20
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\schemas\session.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 6, 17, 59
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\core\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\core\config.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 4, 9, 25
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\core\database.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 3, 10, 43
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\core\exceptions.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 6, 16, 42
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\migrations\init.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 144, 0, 0, 0, 0, 0, 17, 18, 179
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\diagnostic_trees.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 0, 0, 0, 0, 0, 0, 4, 74
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\faqs.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 82, 0, 0, 0, 0, 0, 14, 26, 122
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\historical_cases.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 156, 0, 0, 0, 0, 0, 14, 51, 221
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\knowledge_chunks.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 7, 3, 39
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\vehicles.sql", "MS SQL", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 6, 1, 24
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\main.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 6, 14, 62
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 1, 3, 24
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\decision_log.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 2, 9, 31
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\feedback.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 2, 9, 32
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\knowledge.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 1, 16, 59
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\knowledge_chunk.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 6, 14, 64
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\message.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 2, 9, 29
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\session.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 51, 0, 0, 0, 0, 0, 0, 0, 3, 14, 68
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\vehicle.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 2, 9, 28
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\graph.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 140, 0, 0, 0, 0, 0, 0, 0, 35, 39, 214
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\classifier.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 0, 0, 0, 32, 24, 238
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\faq_matcher.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 136, 0, 0, 0, 0, 0, 0, 0, 28, 29, 193
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\free_text.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 152, 0, 0, 0, 0, 0, 0, 0, 21, 27, 200
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\menu.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 7, 15, 71
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\tree_engine.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 184, 0, 0, 0, 0, 0, 0, 0, 16, 30, 230
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\vin_lookup.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 99, 0, 0, 0, 0, 0, 0, 0, 8, 17, 124
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\state.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 2, 5, 26
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\pytest.ini", "Ini", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 1, 7
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\requirements.txt", "pip requirements", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 8, 9, 31
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\groq_client.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 161, 0, 0, 0, 0, 0, 0, 0, 53, 29, 243
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\ranking.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 40, 27, 134
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\response_builder.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 104, 0, 0, 0, 0, 0, 0, 0, 31, 21, 156
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\tracing.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 87, 0, 0, 0, 0, 0, 0, 0, 32, 13, 132
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\test_faq_matcher.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 62, 0, 0, 0, 0, 0, 0, 0, 5, 18, 85
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\test_free_text.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 103, 0, 0, 0, 0, 0, 0, 0, 6, 20, 129
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\test_tree_engine.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 91, 0, 0, 0, 0, 0, 0, 0, 4, 24, 119
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\test_vin_lookup.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 0, 6, 23, 100
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docker-compose.yml", "YAML", 0, 0, 0, 0, 0, 0, 0, 0, 0, 58, 0, 0, 0, 0, 0, 0, 2, 5, 65
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\DDT.md", "Markdown", 709, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 131, 840
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\diagrams\database-er.mmd", "Mermaid Radar", 0, 0, 0, 0, 0, 0, 0, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 101
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\diagrams\flujo-asistente.mmd", "Mermaid Radar", 0, 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 24
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\flujos-guiados-control-operativo.md", "Markdown", 125, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 49, 174
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\pruebas-flujos-guiados.md", "Markdown", 108, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 77, 185
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\erDiagram.mmd", "Mermaid Radar", 0, 0, 0, 0, 0, 0, 0, 122, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 134
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\Dockerfile", "Docker", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 12, 28
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\README.md", "Markdown", 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 30
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\index.html", "HTML", 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 15
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\package.json", "JSON", 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 30
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\postcss.config.js", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\App.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 0, 0, 0, 0, 6, 11, 89
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\ChatContainer.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 189, 0, 0, 0, 0, 21, 27, 237
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\InputBar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 4, 5, 50
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\MenuOptions.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 6, 5, 72
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\MessageBubble.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 11, 12, 100
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\QuickReplies.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 3, 2, 28
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\RouteHeader.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 9, 5, 50
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Diagnosis\ConfidenceBadge.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 4, 3, 24
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Diagnosis\DiagnosisResult.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 76, 0, 0, 0, 0, 13, 13, 102
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Diagnosis\HypothesisList.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 3, 2, 26
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\UI\ErrorMessage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 3, 1, 21
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\UI\FeedbackModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 87, 0, 0, 0, 0, 3, 8, 98
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\UI\PhaseBar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 51, 0, 0, 0, 0, 7, 5, 63
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\UI\Spinner.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 3, 1, 12
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\hooks\useChat.js", "JavaScript", 0, 82, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 12, 111
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\hooks\useSession.js", "JavaScript", 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 7, 48
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\index.css", "PostCSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 2, 4, 24
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\main.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 2, 11
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\services\api.js", "JavaScript", 0, 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 10, 89
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\utils\messageTypes.js", "JavaScript", 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 3, 24
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\tailwind.config.js", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 16
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\vite.config.js", "JavaScript", 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 26
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\scripts\reset_db.sh", "Shell Script", 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 37
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\scripts\run-flujo-guiado.ps1", "PowerShell", 0, 0, 0, 133, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 21, 161
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\scripts\seed_db.sh", "Shell Script", 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 10, 26
+"Total", "-", 3398, 212, 41, 133, 14, 25, 29, 232, 2498, 58, 498, 785, 18, 14, 6, 20, 709, 1625, 10315

@@ -1,0 +1,163 @@
+Date : 2026-05-24 20:07:04
+Directory : c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico
+Total : 92 files,  7981 codes, 709 comments, 1625 blanks, all 10315 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| Markdown         |          8 |      3,398 |          0 |        657 |      4,055 |
+| Python           |         41 |      2,498 |        446 |        615 |      3,559 |
+| JavaScript JSX   |         15 |        785 |         96 |        102 |        983 |
+| MS SQL           |          6 |        498 |         58 |        103 |        659 |
+| Mermaid Radar    |          3 |        232 |          0 |         27 |        259 |
+| JavaScript       |          7 |        212 |         73 |         36 |        321 |
+| PowerShell       |          1 |        133 |          7 |         21 |        161 |
+| YAML             |          1 |         58 |          2 |          5 |         65 |
+| Shell Script     |          2 |         41 |          5 |         17 |         63 |
+| JSON             |          1 |         29 |          0 |          1 |         30 |
+| Docker           |          2 |         25 |          5 |         19 |         49 |
+| Ignore           |          1 |         20 |          7 |          7 |         34 |
+| PostCSS          |          1 |         18 |          2 |          4 |         24 |
+| HTML             |          1 |         14 |          0 |          1 |         15 |
+| pip requirements |          1 |         14 |          8 |          9 |         31 |
+| Ini              |          1 |          6 |          0 |          1 |          7 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                          | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                             |         92 |      7,981 |        709 |      1,625 |     10,315 |
+| . (Files)                                                                                                     |          5 |      2,604 |          2 |        402 |      3,008 |
+| backend                                                                                                       |         52 |      3,059 |        522 |        747 |      4,328 |
+| backend (Files)                                                                                               |          6 |        105 |         24 |         43 |        172 |
+| backend\api                                                                                                   |          8 |        454 |         77 |        117 |        648 |
+| backend\api (Files)                                                                                           |          1 |          0 |          1 |          1 |          2 |
+| backend\api\routes                                                                                            |          4 |        409 |         66 |         90 |        565 |
+| backend\api\schemas                                                                                           |          3 |         45 |         10 |         26 |         81 |
+| backend\core                                                                                                  |          4 |         62 |         14 |         36 |        112 |
+| backend\db                                                                                                    |          6 |        498 |         58 |        103 |        659 |
+| backend\db\migrations                                                                                         |          1 |        144 |         17 |         18 |        179 |
+| backend\db\seeds                                                                                              |          5 |        354 |         41 |         85 |        480 |
+| backend\models                                                                                                |          8 |        233 |         19 |         83 |        335 |
+| backend\orchestrator                                                                                          |         10 |        961 |        151 |        188 |      1,300 |
+| backend\orchestrator (Files)                                                                                  |          3 |        159 |         38 |         45 |        242 |
+| backend\orchestrator\nodes                                                                                    |          7 |        802 |        113 |        143 |      1,058 |
+| backend\services                                                                                              |          5 |        419 |        157 |         91 |        667 |
+| backend\tests                                                                                                 |          5 |        327 |         22 |         86 |        435 |
+| docs                                                                                                          |          5 |      1,052 |          0 |        272 |      1,324 |
+| docs (Files)                                                                                                  |          3 |        942 |          0 |        257 |      1,199 |
+| docs\diagrams                                                                                                 |          2 |        110 |          0 |         15 |        125 |
+| frontend                                                                                                      |         27 |      1,092 |        173 |        166 |      1,431 |
+| frontend (Files)                                                                                              |          7 |        119 |          5 |         28 |        152 |
+| frontend\src                                                                                                  |         20 |        973 |        168 |        138 |      1,279 |
+| frontend\src (Files)                                                                                          |          3 |         99 |          8 |         17 |        124 |
+| frontend\src\components                                                                                       |         13 |        704 |         90 |         89 |        883 |
+| frontend\src\components\Chat                                                                                  |          6 |        427 |         54 |         56 |        537 |
+| frontend\src\components\Diagnosis                                                                             |          3 |        114 |         20 |         18 |        152 |
+| frontend\src\components\UI                                                                                    |          4 |        163 |         16 |         15 |        194 |
+| frontend\src\hooks                                                                                            |          2 |        117 |         23 |         19 |        159 |
+| frontend\src\services                                                                                         |          1 |         42 |         37 |         10 |         89 |
+| frontend\src\utils                                                                                            |          1 |         11 |         10 |          3 |         24 |
+| scripts                                                                                                       |          3 |        174 |         12 |         38 |        224 |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                                      | language         | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\PROJECT_CONTEXT.md                                    | Markdown         |        938 |          0 |        134 |      1,072 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\PROJECT_CONTEXT2.md                                   | Markdown         |      1,017 |          0 |        125 |      1,142 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\README.md                                             | Markdown         |        469 |          0 |        126 |        595 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\.dockerignore                                 | Ignore           |         20 |          7 |          7 |         34 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\Dockerfile                                    | Docker           |         11 |          3 |          7 |         21 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\README.md                                     | Markdown         |         12 |          0 |          5 |         17 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\__init__.py                               | Python           |          0 |          1 |          1 |          2 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\routes\__init__.py                        | Python           |          0 |          1 |          1 |          2 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\routes\feedback.py                        | Python           |         71 |         10 |         18 |         99 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\routes\metrics.py                         | Python           |         65 |         16 |         16 |         97 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\routes\session.py                         | Python           |        273 |         39 |         55 |        367 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\schemas\__init__.py                       | Python           |          0 |          1 |          1 |          2 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\schemas\feedback.py                       | Python           |          9 |          3 |          8 |         20 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\api\schemas\session.py                        | Python           |         36 |          6 |         17 |         59 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\core\__init__.py                              | Python           |          0 |          1 |          1 |          2 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\core\config.py                                | Python           |         12 |          4 |          9 |         25 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\core\database.py                              | Python           |         30 |          3 |         10 |         43 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\core\exceptions.py                            | Python           |         20 |          6 |         16 |         42 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\migrations\init.sql                        | MS SQL           |        144 |         17 |         18 |        179 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\diagnostic_trees.sql                 | MS SQL           |         70 |          0 |          4 |         74 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\faqs.sql                             | MS SQL           |         82 |         14 |         26 |        122 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\historical_cases.sql                 | MS SQL           |        156 |         14 |         51 |        221 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\knowledge_chunks.sql                 | MS SQL           |         29 |          7 |          3 |         39 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\db\seeds\vehicles.sql                         | MS SQL           |         17 |          6 |          1 |         24 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\main.py                                       | Python           |         42 |          6 |         14 |         62 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\__init__.py                            | Python           |         20 |          1 |          3 |         24 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\decision_log.py                        | Python           |         20 |          2 |          9 |         31 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\feedback.py                            | Python           |         21 |          2 |          9 |         32 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\knowledge.py                           | Python           |         42 |          1 |         16 |         59 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\knowledge_chunk.py                     | Python           |         44 |          6 |         14 |         64 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\message.py                             | Python           |         18 |          2 |          9 |         29 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\session.py                             | Python           |         51 |          3 |         14 |         68 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\models\vehicle.py                             | Python           |         17 |          2 |          9 |         28 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\__init__.py                      | Python           |          0 |          1 |          1 |          2 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\graph.py                         | Python           |        140 |         35 |         39 |        214 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\__init__.py                | Python           |          0 |          1 |          1 |          2 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\classifier.py              | Python           |        182 |         32 |         24 |        238 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\faq_matcher.py             | Python           |        136 |         28 |         29 |        193 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\free_text.py               | Python           |        152 |         21 |         27 |        200 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\menu.py                    | Python           |         49 |          7 |         15 |         71 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\tree_engine.py             | Python           |        184 |         16 |         30 |        230 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\vin_lookup.py              | Python           |         99 |          8 |         17 |        124 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\state.py                         | Python           |         19 |          2 |          5 |         26 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\pytest.ini                                    | Ini              |          6 |          0 |          1 |          7 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\requirements.txt                              | pip requirements |         14 |          8 |          9 |         31 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\__init__.py                          | Python           |          0 |          1 |          1 |          2 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\groq_client.py                       | Python           |        161 |         53 |         29 |        243 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\ranking.py                           | Python           |         67 |         40 |         27 |        134 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\response_builder.py                  | Python           |        104 |         31 |         21 |        156 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\services\tracing.py                           | Python           |         87 |         32 |         13 |        132 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\__init__.py                             | Python           |          0 |          1 |          1 |          2 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\test_faq_matcher.py                     | Python           |         62 |          5 |         18 |         85 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\test_free_text.py                       | Python           |        103 |          6 |         20 |        129 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\test_tree_engine.py                     | Python           |         91 |          4 |         24 |        119 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\tests\test_vin_lookup.py                      | Python           |         71 |          6 |         23 |        100 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docker-compose.yml                                    | YAML             |         58 |          2 |          5 |         65 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\DDT.md                                           | Markdown         |        709 |          0 |        131 |        840 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\diagrams\database-er.mmd                         | Mermaid Radar    |         91 |          0 |         10 |        101 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\diagrams\flujo-asistente.mmd                     | Mermaid Radar    |         19 |          0 |          5 |         24 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\flujos-guiados-control-operativo.md              | Markdown         |        125 |          0 |         49 |        174 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\docs\pruebas-flujos-guiados.md                        | Markdown         |        108 |          0 |         77 |        185 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\erDiagram.mmd                                         | Mermaid Radar    |        122 |          0 |         12 |        134 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\Dockerfile                                   | Docker           |         14 |          2 |         12 |         28 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\README.md                                    | Markdown         |         20 |          0 |         10 |         30 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\index.html                                   | HTML             |         14 |          0 |          1 |         15 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\package.json                                 | JSON             |         29 |          0 |          1 |         30 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\postcss.config.js                            | JavaScript       |          6 |          0 |          1 |          7 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\App.jsx                                  | JavaScript JSX   |         72 |          6 |         11 |         89 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\ChatContainer.jsx        | JavaScript JSX   |        189 |         21 |         27 |        237 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\InputBar.jsx             | JavaScript JSX   |         41 |          4 |          5 |         50 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\MenuOptions.jsx          | JavaScript JSX   |         61 |          6 |          5 |         72 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\MessageBubble.jsx        | JavaScript JSX   |         77 |         11 |         12 |        100 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\QuickReplies.jsx         | JavaScript JSX   |         23 |          3 |          2 |         28 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\RouteHeader.jsx          | JavaScript JSX   |         36 |          9 |          5 |         50 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Diagnosis\ConfidenceBadge.jsx | JavaScript JSX   |         17 |          4 |          3 |         24 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Diagnosis\DiagnosisResult.jsx | JavaScript JSX   |         76 |         13 |         13 |        102 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Diagnosis\HypothesisList.jsx  | JavaScript JSX   |         21 |          3 |          2 |         26 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\UI\ErrorMessage.jsx           | JavaScript JSX   |         17 |          3 |          1 |         21 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\UI\FeedbackModal.jsx          | JavaScript JSX   |         87 |          3 |          8 |         98 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\UI\PhaseBar.jsx               | JavaScript JSX   |         51 |          7 |          5 |         63 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\UI\Spinner.jsx                | JavaScript JSX   |          8 |          3 |          1 |         12 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\hooks\useChat.js                         | JavaScript       |         82 |         17 |         12 |        111 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\hooks\useSession.js                      | JavaScript       |         35 |          6 |          7 |         48 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\index.css                                | PostCSS          |         18 |          2 |          4 |         24 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\main.jsx                                 | JavaScript JSX   |          9 |          0 |          2 |         11 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\services\api.js                          | JavaScript       |         42 |         37 |         10 |         89 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\utils\messageTypes.js                    | JavaScript       |         11 |         10 |          3 |         24 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\tailwind.config.js                           | JavaScript       |         14 |          1 |          1 |         16 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\vite.config.js                               | JavaScript       |         22 |          2 |          2 |         26 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\scripts\reset_db.sh                                   | Shell Script     |         27 |          3 |          7 |         37 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\scripts\run-flujo-guiado.ps1                          | PowerShell       |        133 |          7 |         21 |        161 |
+| c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\scripts\seed_db.sh                                    | Shell Script     |         14 |          2 |         10 |         26 |
+| Total                                                                                                         |                  |      7,981 |        709 |      1,625 |     10,315 |
++---------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

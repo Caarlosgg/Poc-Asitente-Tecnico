@@ -1,0 +1,6 @@
+"filename", "language", "Python", "JavaScript JSX", "comment", "blank", "total"
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\graph.py", "Python", 3, 0, 1, 0, 4
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\classifier.py", "Python", 25, 0, 1, 1, 27
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\backend\orchestrator\nodes\free_text.py", "Python", 1, 0, 0, 0, 1
+"c:\Users\Carlos\Desktop\Proyectos\poc-asistente-tecnico\frontend\src\components\Chat\ChatContainer.jsx", "JavaScript JSX", 0, 2, 0, 0, 2
+"Total", "-", 29, 2, 2, 1, 34

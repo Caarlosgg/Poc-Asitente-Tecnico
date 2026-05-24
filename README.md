@@ -1,411 +1,500 @@
-# POC Asistente Conversacional Tecnico de Diagnostico por Bastidor
+# POC — Asistente Técnico de Diagnóstico
 
-Este repositorio contiene la base preparatoria de una prueba de concepto (POC) para un asistente conversacional tecnico orientado al diagnostico de motocicletas. La POC valida un enfoque hibrido que combina flujo guiado por reglas (bastidor, menu y arbol), resolucion FAQ y entrada libre con recuperacion semantica vectorial.
+Sistema conversacional para técnicos de taller que guía el diagnóstico de motocicletas mediante árboles de decisión estructurados (DDT), base de FAQs e IA generativa. El técnico identifica la moto por bastidor (VIN) y el asistente le lleva hasta un diagnóstico concreto.
 
-## Objetivo de esta fase (Fase 1 - Preparacion)
+**Stack:** React 18 · FastAPI · LangGraph · PostgreSQL 16 + pgvector · Groq API (llama-3.1-8b-instant) · Docker
 
-La fase actual es estrictamente de infraestructura y documentacion:
+---
 
-- definir arquitectura monolito modular,
-- preparar solo el andamiaje de carpetas,
-- definir el esquema SQL con soporte vectorial,
-- dejar una base clara para explicar el diseno al equipo.
+## Inicio rápido
 
-No se implementa logica de negocio ni codigo funcional de frontend/backend en esta etapa.
+### Prerrequisitos
+- Docker + Docker Compose instalados
+- Clave API de Groq → [console.groq.com](https://console.groq.com)
 
-## Arquitectura elegida (escalable)
+### 1. Clonar y configurar entorno
 
-La arquitectura definida para esta POC es un monolito modular por dominios (modular monolith).
-
-Esto significa:
-
-- una sola aplicacion desplegable en esta fase,
-- modulos internos desacoplados por responsabilidad,
-- contratos claros entre capas (API, orquestacion, datos, UI).
-
-Por que esta arquitectura SI es escalable:
-
-- Escalado funcional: agregar nuevas capacidades creando modulos nuevos sin reescribir los actuales.
-- Escalado de equipo: cada modulo puede tener ownership tecnico independiente.
-- Escalado tecnico: cuando haga falta, un modulo puede extraerse a servicio separado reutilizando contratos.
-- Escalado de datos: PostgreSQL + pgvector permite crecer en volumen manteniendo trazabilidad y busqueda semantica.
-
-Ruta de evolucion prevista:
-
-1. POC: monolito modular (rapido, controlado y simple de operar).
-2. MVP: modularidad reforzada + contratos versionados + pruebas integradas.
-3. Escala mayor: separar modulos criticos en servicios, solo si el volumen o la organizacion lo requiere.
-
-## Principios de escalabilidad y facilidad de cambio
-
-Estas reglas guian todas las fases siguientes para crecer sin rehacer la base:
-
-- Separacion de responsabilidades: cada modulo cumple una sola funcion clara.
-- Contratos estables: cambios entre frontend y backend deben pasar por contratos versionados.
-- Cambios aditivos primero: preferir agregar nuevas piezas antes de romper estructuras existentes.
-- Configuracion externa: parametros de entorno fuera del codigo para cambiar proveedores o despliegues rapido.
-- Migraciones controladas: toda evolucion de base de datos debe ser incremental y trazable.
-- Trazabilidad desde el inicio: cada decision importante debe poder reconstruirse en logs/estado.
-
-Objetivo practico: que un cambio de proveedor, modulo o flujo no obligue a redisenar todo el proyecto.
-
-## Arquitectura de alto nivel
-
-- Frontend: Next.js para una UI de chat con quick replies y estado de sesion visible.
-- Backend: FastAPI para exponer endpoints conversacionales y de metricas.
-- Orquestacion: LangGraph para controlar flujo, estado y rutas de decision.
-- Persistencia: PostgreSQL para datos transaccionales y trazabilidad.
-- Recuperacion semantica: pgvector para busqueda vectorial de casos y FAQs.
-
-## Estructura del repositorio
-
-```text
-.
-|-- backend/
-|   |-- app/
-|   |   |-- api/
-|   |   |-- core/
-|   |   |-- db/
-|   |   `-- modules/
-|   `-- tests/
-|-- database/
-|   `-- migrations/
-|-- docs/
-|   |-- DDT.md
-|   `-- diagrams/
-|       |-- flujo-asistente.mmd
-|       `-- database-er.mmd
-|-- frontend/
-|   |-- app/
-|   |-- components/
-|   `-- lib/
-`-- docker-compose.yml
+```bash
+git clone <repo>
+cd poc-asistente-tecnico
+cp .env.example .env
+# Editar .env → añadir GROQ_API_KEY=gsk_...
 ```
 
-## Responsabilidad de carpetas (vista didactica)
+### 2. Levantar todo con un comando
 
-| Carpeta | Responsabilidad en la arquitectura |
-| --- | --- |
-| frontend/app | Shell de la app web y composicion de pantallas conversacionales. |
-| frontend/components | Componentes UI reutilizables del chat (mensajes, quick replies, etc.). |
-| frontend/lib | Tipos y utilidades de integracion con API. |
-| backend/app/api | Contratos HTTP de sesion, mensajes, feedback y metricas. |
-| backend/app/core | Configuracion transversal y observabilidad. |
-| backend/app/db | Acceso a datos y modelos de persistencia. |
-| backend/app/modules | Modulos funcionales del DDT (orquestador, FAQ, arbol, otros, ranking, trazabilidad). |
-| database/migrations | SQL versionado para crear esquema y evolucionarlo por fases. |
-| docs/diagrams | Diagramas funcionales y de datos para revisar arquitectura antes de implementar. |
+```bash
+docker compose up --build
+```
 
-Nota de alcance: en esta fase las carpetas existen para comunicar la arquitectura; su implementacion interna se construye en siguientes iteraciones.
+> Primera vez tarda ~2-3 min (build de imágenes + carga de seeds SQL).
 
-## Stack tecnologico y justificacion tecnica
+| Servicio | URL |
+|---|---|
+| Chat (frontend) | http://localhost:3000 |
+| API (backend) | http://localhost:8000 |
+| Swagger / Docs | http://localhost:8000/docs |
+| Health check | http://localhost:8000/health |
 
-| Capa | Tecnologia | Justificacion para MVP gratuito/open source |
-| --- | --- | --- |
-| Frontend | Next.js | Productividad alta, SSR/CSR flexible y despliegue simple para demo. |
-| Backend API | FastAPI | Desarrollo rapido, tipado fuerte y muy buena experiencia para APIs de POC. |
-| Orquestacion conversacional | LangGraph | Control explicito del estado y del flujo hibrido sin delegar todo al LLM. |
-| Base de datos | PostgreSQL | Motor robusto, libre y estandar para evolucionar de POC a MVP. |
-| Busqueda semantica | pgvector | Evita sumar otra base especializada; mantiene simplicidad operativa. |
+### 3. Probar el flujo
 
-## Que es pgvector y por que se usa aqui
+1. Abre http://localhost:3000
+2. El asistente pedirá el **bastidor (VIN)** — usa uno de los VINs de prueba:
+   - `AK550-2023-001` (AK550 — tiene árboles DDT completos)
+   - `XCT400-2022-001` (Xciting S 400)
+   - `CV5-2023-001` (CV5 — solo FAQ + texto libre)
+3. Elige un síntoma del menú y sigue el flujo guiado
 
-pgvector es una extension de PostgreSQL que agrega el tipo VECTOR y operadores de similitud.
-En esta POC se usa para guardar embeddings en las tablas de conocimiento (historical_cases y faqs)
-y poder recuperar casos similares por cercania semantica.
+> **VINs de prueba recomendados:**
+> - `AK550-POC-0001` → AK550 con árboles DDT completos (Motor, Arranque, CELP, Consumo)
+> - `XCITING-POC-0001` → Xciting S 400 con árbol de Motor
+> - `CV5-2023-0001` → CV5, solo Ruta B (FAQ) + Ruta C (IA libre)
 
-Ventajas para esta fase:
+---
 
-- misma base de datos para datos transaccionales y busqueda vectorial,
-- menos complejidad operativa (sin Elasticsearch/Pinecone/otro motor adicional),
-- facil de evolucionar luego a Supabase o PostgreSQL administrado.
+## Cómo funciona — Las tres rutas
 
-## Diagrama de base de datos (ER)
+```
+USUARIO
+  │
+  ▼
+Pedir bastidor (VIN)
+  │
+  ▼ [vin_lookup] — Verifica en BD vehicles
+  │
+  ▼ [show_menu] — Muestra 6 opciones
+  │
+  ├────────────────────────────────────────────────────────┐
+  │                        │                              │
+  ▼                        ▼                              ▼
+RUTA A                  RUTA B                        RUTA C
+Síntomas conocidos      FAQ                         Texto libre
+[tree_engine]        [faq_matcher]             [free_text_node]
+Navega árbol DDT     Búsqueda en BD de FAQs    Historial + LLM (Groq)
+Preguntas Sí/No      Respuesta curada          Respuesta contextual
+  │                        │                              │
+  └────────────────────────┴──────────────────────────────┘
+                           │
+                   [response_builder]
+                           │
+             Diagnóstico estructurado
+         (hipótesis + confianza + siguiente paso)
+                           │
+                  Feedback 👍 / 👎
+```
 
-Nota de preview:
+| Ruta | Cuándo se activa | Tecnología |
+|---|---|---|
+| **A — Árbol DDT** | Síntoma conocido con árbol disponible para el modelo | `tree_engine` navega nodos Sí/No |
+| **B — FAQ** | Pregunta frecuente / consulta no diagnóstica | `faq_matcher` búsqueda lexical en BD |
+| **C — Texto libre** | Sin árbol disponible o pregunta abierta | Historial de casos + Groq LLM |
 
-- Para ver solo el diagrama ER con extension Mermaid, abre [docs/diagrams/database-er.mmd](docs/diagrams/database-er.mmd).
-- Este diagrama representa el modelo SQL actual de [database/migrations/01_init.sql](database/migrations/01_init.sql).
+---
+
+## Arquitectura del sistema
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    NAVEGADOR                            │
+│                                                         │
+│  ┌─────────────────┐    ┌──────────────────────────────┐│
+│  │  Sidebar        │    │       Chat                   ││
+│  │  Analítica      │    │  ┌──────────────────────────┐││
+│  │  ─────────────  │    │  │ MessageBubble            │││
+│  │  📊 Métricas    │    │  │ MenuOptions (tarjetas)   │││
+│  │  🗂️ Sesiones    │    │  │ DiagnosisResult          │││
+│  │  🔎 Diagnóst.   │    │  │ InputBar                 │││
+│  │  💬 Feedback    │    │  └──────────────────────────┘││
+│  │  📚 Conocim.    │    └──────────────────────────────┘│
+│  │  🌡️ Mapa calor  │                                    │
+│  │  📄 Export PDF  │         React 18 · Tailwind CSS    │
+│  └─────────────────┘         Vite 5 · Puerto 3000       │
+└───────────────────────────────┬─────────────────────────┘
+                                │ REST / JSON
+                                ▼
+┌─────────────────────────────────────────────────────────┐
+│           FastAPI · Python 3.12 · Puerto 8000           │
+│                                                         │
+│   /session/start     →  [dispatch] → [vin_lookup]       │
+│   /session/message   →  [LangGraph StateGraph]          │
+│   /session/{id}      →  BD: session + messages          │
+│   /metrics/summary   →  KPIs agregados                  │
+│   /analytics/*       →  Sesiones, diagnósticos, heatmap │
+│   /knowledge/*       →  FAQs, casos, árboles            │
+│                                                         │
+│        LangGraph 0.2.28 · Pydantic 2 · SQLAlchemy 2     │
+└───────────────────────────┬─────────────────────────────┘
+                            │ asyncpg
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│         PostgreSQL 16 + pgvector · Puerto 5432          │
+│                                                         │
+│  vehicles  sessions  messages  session_state            │
+│  decision_logs  feedback  diagnostic_trees  tree_nodes  │
+│  faqs  historical_cases                                 │
+└─────────────────────────────────────────────────────────┘
+                            │ API REST
+                            ▼
+                   ┌─────────────────┐
+                   │   Groq API      │
+                   │ llama-3.1-8b    │
+                   │  (solo Ruta C)  │
+                   └─────────────────┘
+```
+
+### LangGraph — el grafo de conversación
+
+```
+[dispatch]
+    │
+    ├── sin VIN → [request_vin] ──────► [vin_lookup]
+    │                                        │
+    │                               ┌────────┴─────────┐
+    │                          VIN válido         No válido
+    │                               │            (máx 3 intentos)
+    │                               ▼                  │
+    │                          [show_menu]    [session_end_error]
+    │                               │
+    │              ┌────────────────┼────────────────┐
+    │              ▼                ▼                ▼
+    │        síntoma A           FAQ B          libre C
+    │       [classifier]     [faq_matcher]  [free_text_node]
+    │            │
+    │      [await_input] ←────────────────────┐
+    │            │                            │
+    │       [tree_engine] → pregunta Sí/No ───┘
+    │            │
+    │     (cuando hay diagnóstico)
+    │            ▼
+    │    [response_builder]
+    │            │
+    └─────────► END
+```
+
+---
+
+## Base de datos — relaciones
 
 ```mermaid
 erDiagram
-   VEHICLES {
-      varchar vin PK
-      varchar model
-      varchar family
-      int displacement_cc
-      varchar market
-      int model_year
-      timestamp created_at
-   }
+    VEHICLES ||--o{ SESSIONS : "vin"
+    SESSIONS ||--|| SESSION_STATE : "session_id"
+    SESSIONS ||--o{ MESSAGES : "session_id"
+    SESSIONS ||--o{ DECISION_LOGS : "session_id"
+    SESSIONS ||--o| FEEDBACK : "session_id"
+    DIAGNOSTIC_TREES ||--o{ TREE_NODES : "tree_id"
 
-   FAQS {
-      int faq_id PK
-      varchar model
-      varchar category
-      text question
-      text answer
-      int usage_count
-      bool active
-      vector1536 embedding
-      timestamp created_at
-      timestamp updated_at
-   }
+    VEHICLES {
+        varchar vin PK
+        varchar model
+        int year
+        varchar color
+        int km
+    }
 
-   DIAGNOSTIC_TREES {
-      varchar tree_id PK
-      varchar model
-      varchar symptom
-      int version
-      jsonb tree_json
-      bool active
-      timestamp created_at
-      timestamp updated_at
-   }
+    SESSIONS {
+        uuid session_id PK
+        varchar vin FK
+        varchar model
+        varchar entry_point
+        varchar status
+        int total_steps
+        varchar final_result
+        bool success
+        timestamp started_at
+        timestamp ended_at
+    }
 
-   HISTORICAL_CASES {
-      varchar case_id PK
-      varchar model
-      varchar symptom_category
-      text case_text
-      varchar final_diagnosis
-      numeric base_confidence
-      vector1536 embedding
-      timestamp created_at
-   }
+    SESSION_STATE {
+        uuid session_id PK_FK
+        varchar current_node
+        varchar current_symptom
+        jsonb state_json
+    }
 
-   SESSIONS {
-      uuid session_id PK
-      varchar vin FK
-      varchar model
-      varchar entry_point
-      varchar status
-      timestamp started_at
-      timestamp ended_at
-      int total_steps
-      varchar final_result
-      bool success
-   }
+    MESSAGES {
+        bigint message_id PK
+        uuid session_id FK
+        varchar role
+        text content
+        timestamp created_at
+    }
 
-   SESSION_STATE {
-      uuid session_id PK
-      varchar vin FK
-      varchar model
-      varchar current_symptom
-      varchar current_node
-      jsonb state_json
-      timestamp updated_at
-   }
+    DECISION_LOGS {
+        bigint log_id PK
+        uuid session_id FK
+        varchar module_name
+        text input_summary
+        text output_summary
+    }
 
-   MESSAGES {
-      bigint message_id PK
-      uuid session_id FK
-      varchar role
-      text content
-      timestamp created_at
-   }
+    FEEDBACK {
+        int feedback_id PK
+        uuid session_id FK
+        bool useful
+        text comment
+    }
 
-   DECISION_LOGS {
-      bigint log_id PK
-      uuid session_id FK
-      varchar module_name
-      jsonb input_data
-      jsonb output_data
-      timestamp created_at
-   }
+    DIAGNOSTIC_TREES {
+        varchar tree_id PK
+        varchar model
+        varchar symptom
+        bool is_active
+    }
 
-   FEEDBACK {
-      bigint feedback_id PK
-      uuid session_id FK
-      bool useful
-      text comment
-      timestamp created_at
-   }
+    TREE_NODES {
+        varchar node_id PK
+        varchar tree_id FK
+        varchar node_type
+        text content
+        varchar yes_next
+        varchar no_next
+    }
 
-   VEHICLES ||--o{ SESSIONS : "vin"
-   VEHICLES ||--o{ SESSION_STATE : "vin"
-   SESSIONS ||--o| SESSION_STATE : "session_id"
-   SESSIONS ||--o{ MESSAGES : "session_id"
-   SESSIONS ||--o{ DECISION_LOGS : "session_id"
-   SESSIONS ||--o| FEEDBACK : "session_id"
+    FAQS {
+        int faq_id PK
+        varchar model
+        varchar category
+        text question
+        text answer
+    }
+
+    HISTORICAL_CASES {
+        varchar case_id PK
+        varchar model
+        varchar symptom_category
+        text description
+        text resolution
+        float confidence_score
+    }
 ```
 
-## Como leer este diagrama ER
+---
 
-Esta lectura corresponde al modelo de datos definido en la seccion 13.
+## API Endpoints
 
-| Bloque | Tablas | Sentido en la POC |
-| --- | --- | --- |
-| Contexto tecnico base | VEHICLES, DIAGNOSTIC_TREES | VEHICLES identifica el modelo por bastidor; DIAGNOSTIC_TREES guarda los arboles guiados versionados. |
-| Conocimiento para respuestas | FAQS, HISTORICAL_CASES | Fuentes de consultas frecuentes y casos previos; ambas incluyen embedding para recuperacion semantica. |
-| Eje de la sesion | SESSIONS, SESSION_STATE | SESSIONS es la cabecera de cada conversacion y SESSION_STATE mantiene el estado vivo del flujo. |
-| Trazabilidad y control | MESSAGES, DECISION_LOGS | MESSAGES guarda turnos conversacionales y DECISION_LOGS registra decisiones tecnicas por modulo. |
-| Cierre y calidad | FEEDBACK | FEEDBACK guarda utilidad/comentario final para medir valor de la POC. |
+### Conversación (DDT)
 
-Relaciones clave del diagrama:
+| Método | Ruta | Descripción |
+|---|---|---|
+| `POST` | `/session/start` | Crea sesión nueva, devuelve saludo o petición de VIN |
+| `POST` | `/session/message` | Procesa mensaje, ejecuta grafo LangGraph |
+| `GET` | `/session/{id}` | Detalle completo: metadatos + mensajes + diagnóstico |
+| `POST` | `/session/{id}/feedback` | Registra 👍/👎 + comentario opcional |
+| `GET` | `/health` | Estado del backend |
 
-- Un VEHICLE puede estar asociado a muchas SESSIONS.
-- Una SESSION tiene un unico SESSION_STATE activo.
-- Una SESSION tiene muchos MESSAGES y muchos DECISION_LOGS.
-- Una SESSION tiene como maximo un FEEDBACK final (relacion 1 a 1 opcional).
+### Analítica y métricas
 
-Por que tiene sentido segun DDT:
+| Método | Ruta | Descripción |
+|---|---|---|
+| `GET` | `/metrics/summary` | KPIs: sesiones, éxito, módulos, top diagnósticos, feedback |
+| `GET` | `/analytics/sessions` | Lista paginada de sesiones (`limit`, `offset`, `status`) |
+| `GET` | `/analytics/diagnoses` | Ranking de diagnósticos más frecuentes por modelo |
+| `GET` | `/analytics/feedback` | Lista de feedback con resumen positivo/negativo |
+| `GET` | `/analytics/heatmap` | Matriz síntomas × modelos para el mapa de calor |
 
-- Seccion 13: todas las entidades obligatorias estan representadas.
-- Seccion 21: la trazabilidad queda cubierta por MESSAGES y DECISION_LOGS.
-- Seccion 22: las metricas se pueden calcular desde SESSIONS, FEEDBACK y uso de rutas.
+### Base de conocimiento
 
-Nota de alcance: el modelo actual prioriza claridad para POC; posibles optimizaciones se evaluan despues de validar flujo y metricas.
+| Método | Ruta | Descripción |
+|---|---|---|
+| `GET` | `/knowledge/faqs` | Lista de FAQs (filtros: `model`, `category`) |
+| `GET` | `/knowledge/cases` | Casos históricos (filtro: `model`) |
+| `GET` | `/knowledge/trees` | Árboles DDT disponibles con recuento de nodos |
 
-## Trazabilidad, control y metricas (alineado con DDT)
+---
 
-Este punto es obligatorio en la POC y se contempla desde la estructura de datos y arquitectura.
+## Datos de prueba disponibles
 
-| Area | Como se cubre en la arquitectura actual |
-| --- | --- |
-| Trazabilidad tecnica | Tabla decision_logs: guarda input/output por modulo y timestamp de cada decision. |
-| Trazabilidad conversacional | Tabla messages: guarda cada turno de usuario/asistente para reconstruccion completa. |
-| Control de estado | Tabla session_state: estado vivo de sesion (modelo, sintoma, nodo actual, state_json). |
-| Control de flujo | Regla de bastidor obligatorio y menu de rutas controladas definidos en el flujo funcional. |
-| Feedback de cierre | Tabla feedback: utilidad y comentario para evaluacion operativa. |
-| Metricas de uso | Endpoint objetivo /metrics/summary y KPIs definidos (FAQ/arbol/otros, tiempos, sesiones). |
+### VINs de prueba (cargados por defecto)
 
-Resumen: no se implementa la logica aun, pero la base estructural para logs, metricas y control ya esta modelada.
+| Modelo | VINs disponibles | Árboles DDT disponibles |
+|---|---|---|
+| AK550 | `AK550-POC-0001`, `AK550-POC-0002`, `AK550-POC-0003` | ✅ Motor, Arranque, CELP, Consumo |
+| AK550 | `AK550-2020-0001`, `AK550-2021-0001`, `AK550-2023-0001` | ✅ Motor, Arranque, CELP, Consumo |
+| AK550 Elite | `AK550E-2023-0001`, `AK550E-2024-0001`, `AK550E-POC-0001` | ❌ (Ruta B+C — sin árbol propio) |
+| Xciting S 400 | `XCITING-POC-0001`, `XCITING-2022-0001`, `XCITING-2023-0001` | ✅ Motor |
+| CV5 | `CV5-2023-0001`, `CV5-POC-0001`, `CV5-POC-0002` | ❌ (Ruta B+C) |
+| DT X360 | `DTXS-2023-0001`, `DTXS-2024-0001`, `DTXS-POC-0001` | ❌ (Ruta B+C) |
+| Agility 125 | `AGILITY-2022-0001`, `AGILITY-POC-0001`, `AGILITY-POC-0002` | ❌ (Ruta B+C) |
 
-## Por que hay muchos modulos en backend aunque esten vacios
+> **VIN recomendado para demos**: `AK550-POC-0001` (tiene todos los árboles DDT)
 
-El backend se preparo con muchos modulos por una razon de arquitectura, no por complejidad innecesaria:
+### Conocimiento cargado
 
-- cada modulo representa una responsabilidad funcional definida en el DDT,
-- evita mezclar reglas de negocio distintas en una sola capa,
-- permite desarrollar por fases sin reestructurar carpetas despues,
-- facilita trazabilidad, testing y ownership tecnico por componente.
+| Tipo | Cantidad |
+|---|---|
+| FAQs curadas | 40 |
+| Casos históricos | 76 (`CASE-001` a `CASE-076`) |
+| Árboles DDT activos | 5 |
+| Nodos de árbol | ~70 |
 
-En Fase 1 estos modulos solo existen como limites de arquitectura. La implementacion llega en fases siguientes.
+---
 
-Opciones de despliegue futuro (sin comprometer la fase actual):
+## Estructura del proyecto
 
-- Supabase: PostgreSQL administrado con soporte pgvector.
-- Vercel: despliegue rapido del frontend Next.js.
-- Groq/OpenRouter: proveedor LLM configurable para clasificacion/redaccion.
-
-## Flujo funcional del asistente (Mermaid)
-
-Nota de preview:
-
-- Para previsualizar el diagrama dentro del README, usa la vista previa Markdown normal de VS Code.
-- Para previsualizar solo el diagrama con una extension Mermaid, abre el archivo [docs/diagrams/flujo-asistente.mmd](docs/diagrams/flujo-asistente.mmd).
-
-```mermaid
-flowchart TD
-   A["Inicio de sesion"] --> B["Solicitar bastidor"]
-   B --> C{"Bastidor valido?"}
-   C -->|No| D["Respuesta controlada y reintento"]
-   D --> B
-   C -->|Si| E["Resolver modelo por VIN"]
-   E --> F["Mostrar menu principal"]
-   F --> G{"Ruta elegida"}
-
-   G -->|Sintomas frecuentes| H["Motor de arbol diagnostico"]
-   G -->|Consultas FAQ| I["FAQ matcher por modelo/categoria"]
-   G -->|Otros| J["Texto libre"]
-
-   J --> K["Normalizacion + extraccion de tags"]
-   K --> L["RAG vectorial en historical_cases y faqs"]
-   L --> M["Ranking hibrido top 3"]
-
-   H --> N["Respuesta estandar de diagnostico"]
-   I --> N
-   M --> N
-
-   N --> O["Persistir session_state/messages/decision_logs"]
-   O --> P["Solicitar feedback final"]
+```
+poc-asistente-tecnico/
+│
+├── docker-compose.yml              ← Orquesta los 3 contenedores
+├── .env                            ← GROQ_API_KEY y config (no en Git)
+├── ESTUDIAR.md                     ← Guía de estudio: DDT, tecnologías, flujos
+│
+├── backend/
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── app/
+│       ├── main.py                 ← Entry point FastAPI
+│       ├── core/config.py          ← pydantic-settings: variables de entorno
+│       ├── db/
+│       │   ├── session.py          ← AsyncEngine + AsyncSession
+│       │   └── schema.py           ← Tablas SQLAlchemy ORM
+│       ├── api/
+│       │   ├── routers/            ← session.py, metrics.py, analytics.py, knowledge.py
+│       │   └── schemas/            ← Pydantic: contratos request/response
+│       └── modules/
+│           ├── orchestrator/       ← StateGraph LangGraph + ConversationState
+│           ├── vin_lookup/         ← Valida bastidor contra tabla vehicles
+│           ├── tree_engine/        ← Navega árbol DDT nodo a nodo
+│           ├── faq_matcher/        ← Búsqueda lexical en FAQs
+│           ├── free_text_parser/   ← Texto libre → contexto para LLM
+│           ├── response_builder/   ← Formatea DiagnosisData estructurado
+│           └── traceability/       ← Escribe decision_logs
+│
+├── frontend/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── src/
+│       ├── App.jsx                 ← Layout: header + sidebar + chat
+│       ├── services/api.js         ← Todas las llamadas fetch al backend
+│       └── components/
+│           ├── Chat/               ← ChatContainer, MessageBubble, MenuOptions, InputBar
+│           ├── UI/                 ← SessionSummaryPanel, HealthIndicator, PhaseBar
+│           └── Analytics/          ← LeftNavSidebar, SymptomHeatMap, PdfExport
+│
+├── database/
+│   └── migrations/                 ← init.sql: DDL + seeds auto-cargados
+│
+└── docs/
+    ├── DDT.md                      ← Documento de Diseño Técnico original
+    ├── TECHNICAL_SPEC.md           ← Especificación técnica de todos los archivos
+    └── FUNCTIONAL_OVERVIEW.md      ← Visión funcional para no técnicos
 ```
 
-## Explicacion nodo por nodo del diagrama
+---
 
-| Nodo | Que representa | Para que sirve en la POC |
-| --- | --- | --- |
-| A | Inicio de sesion | Punto de entrada del usuario al asistente. |
-| B | Solicitar bastidor | Fuerza la regla principal: no hay diagnostico sin identificar vehiculo. |
-| C | Decision bastidor valido | Controla si el VIN existe o no en el dataset mock. |
-| D | Respuesta controlada y reintento | Maneja error esperado sin romper la conversacion. |
-| E | Resolver modelo por VIN | Fija el modelo en sesion para contextualizar todo lo siguiente. |
-| F | Mostrar menu principal | Presenta las 3 rutas de interaccion definidas en el DDT. |
-| G | Decision de ruta elegida | Enruta hacia sintomas, FAQ o texto libre. |
-| H | Motor de arbol diagnostico | Ejecuta flujo guiado para sintomas conocidos. |
-| I | FAQ matcher | Responde consultas frecuentes por coincidencia de modelo/categoria. |
-| J | Texto libre | Entrada abierta para casos no cubiertos por menu directo. |
-| K | Normalizacion y extraccion | Limpia texto y obtiene senales utiles (tags/atributos). |
-| L | RAG vectorial | Recupera casos/FAQs similares usando embeddings en pgvector. |
-| M | Ranking hibrido top 3 | Ordena hipotesis probables para salida controlada. |
-| N | Respuesta estandar de diagnostico | Devuelve formato unificado (hipotesis, alternativas, siguiente paso). |
-| O | Persistir trazabilidad y estado | Guarda contexto y decisiones para auditoria y continuidad. |
-| P | Solicitar feedback final | Cierra la sesion con evaluacion de utilidad para metricas. |
+## Comandos útiles
 
-Lectura rapida del flujo:
+```bash
+# Arrancar todo (primera vez o tras cambios)
+docker compose up --build
 
-- A-B-C-D-E validan identidad tecnica del vehiculo.
-- F-G-H-I-J definen la estrategia de entrada del usuario.
-- K-L-M-N construyen la respuesta en el camino de texto libre.
-- O-P aseguran trazabilidad y aprendizaje de uso.
+# Arrancar en segundo plano
+docker compose up -d --build
 
-## Levantar base de datos local con Docker
+# Ver logs en tiempo real
+docker compose logs -f backend
+docker compose logs -f frontend
 
-1. Verificar Docker Desktop activo.
-2. Desde la raiz del proyecto, ejecutar:
+# Reconstruir solo un servicio tras cambiar código
+docker compose up -d --build backend
+docker compose up -d --build frontend
 
-   ```bash
-   docker compose up -d
-   ```
+# Reiniciar un contenedor sin rebuild
+docker compose restart backend
 
-3. Confirmar salud del contenedor:
+# Parar todo
+docker compose down
 
-   ```bash
-   docker compose ps
-   ```
+# Parar y borrar datos de BD (reset completo)
+docker compose down -v
 
-   Nota: la carpeta database/migrations se monta en /docker-entrypoint-initdb.d.
-   PostgreSQL ejecuta esos scripts automaticamente solo en la inicializacion del volumen.
+# Shell interactiva en el backend
+docker exec -it poc-backend bash
 
-4. Validar que PostgreSQL responde:
+# Consultar la BD directamente
+docker exec -it poc-postgres psql -U poc_user -d poc_asistente
 
-   ```bash
-   docker exec -it poc_asistente_postgres psql -U asistente_user -d asistente_poc -c "SELECT NOW();"
-   ```
+# Cargar seed SQL adicional
+docker exec -i poc-postgres psql -U poc_user -d poc_asistente < database/migrations/seed.sql
+```
 
-5. Verificar tablas creadas por la migracion:
+---
 
-   ```bash
-   docker exec -it poc_asistente_postgres psql -U asistente_user -d asistente_poc -c "\dt"
-   ```
+## Desarrollo local (sin Docker)
 
-6. (Opcional) revisar indices vectoriales HNSW:
+```bash
+# Terminal 1 — Backend
+cd backend
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # Mac/Linux
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000
 
-   ```bash
-   docker exec -it poc_asistente_postgres psql -U asistente_user -d asistente_poc -c "\di"
-   ```
+# Terminal 2 — Frontend
+cd frontend
+npm install
+npm run dev
+# Abre http://localhost:5173 (Vite dev server)
+```
 
-## Cronograma (4 semanas)
+> Para el backend local necesitas PostgreSQL accesible. La forma más simple es levantar solo la BD con Docker:
+> ```bash
+> docker compose up -d postgres
+> ```
 
-| Semana | Objetivo | Entregables |
-| --- | --- | --- |
-| Semana 1 | Base tecnica y persistencia | Migraciones + diagrama ER, tablas de control (sessions/session_state), trazabilidad base (messages/decision_logs). |
-| Semana 2 | Flujos guiados y control operativo | Bastidor obligatorio, menu principal, arboles iniciales y logging por modulo en decisiones clave. |
-| Semana 3 | Entrada libre y medicion de uso | Modulo Otros, recuperacion vectorial, ranking top-3 y metrica de uso por ruta (FAQ/arbol/otros). |
-| Semana 4 | Cierre con observabilidad | Feedback final, endpoint /metrics/summary, validacion de logs, pruebas E2E y demo final. |
+---
 
-## Criterios de preparacion cumplidos en este repo
+## Variables de entorno (`.env`)
 
-- separacion clara frontend/backend/database,
-- docker-compose listo para PostgreSQL + pgvector,
-- migracion SQL inicial completa con indices clasicos y vectoriales,
-- documentacion base para onboarding tecnico del equipo,
-- estructura deliberadamente minima para avanzar fase por fase.
+| Variable | Ejemplo | Descripción |
+|---|---|---|
+| `GROQ_API_KEY` | `gsk_...` | Clave API de Groq (obligatoria) |
+| `DATABASE_URL` | `postgresql+asyncpg://poc_user:poc_password@poc-postgres:5432/poc_asistente` | Conexión asyncpg |
+| `GROQ_MODEL` | `llama-3.1-8b-instant` | Modelo LLM |
+| `FRONTEND_ORIGIN` | `http://localhost:3000` | CORS origin permitido |
 
-## Siguientes pasos (fase de implementacion)
+---
 
-1. Cargar dataset mock en migraciones de seed.
-2. Implementar endpoints definidos en el DDT.
-3. Implementar orquestacion por estados con LangGraph.
-4. Conectar UI de chat a la API.
+## Panel de Analítica
+
+El sidebar del chat ofrece 7 secciones:
+
+| Sección | Icono | Qué muestra |
+|---|---|---|
+| Métricas | 📊 | KPIs: sesiones, tasa de éxito, módulos más usados, top diagnósticos |
+| Sesiones | 🗂️ | Lista paginada de sesiones con estado y duración |
+| Diagnósticos | 🔎 | Ranking de diagnósticos frecuentes por modelo |
+| Feedback | 💬 | Valoraciones 👍/👎 con comentarios |
+| Conocimiento | 📚 | FAQs, casos históricos y árboles DDT consultables |
+| Mapa de calor | 🌡️ | Matriz síntomas × modelos: intensidad de actividad |
+| Exportar PDF | 📄 | Genera informe PDF en el navegador (sin librerías externas) |
+
+---
+
+## Reglas de negocio clave
+
+| Código | Regla |
+|---|---|
+| RN-NEG-001 | Sin VIN válido no hay diagnóstico. El sistema nunca asume el vehículo |
+| RN-NEG-002 | El modelo lo determina el VIN, nunca el texto del usuario |
+| RN-NEG-003 | Síntoma conocido + árbol disponible → prioridad a Ruta A (DDT) |
+| RN-NEG-006 | En Ruta C, los casos históricos se filtran por modelo del vehículo |
+| RN-NEG-009 | Máximo 3 intentos de VIN antes de cerrar sesión en error |
+
+---
+
+## Checklist de verificación
+
+```
+[ ] docker compose up --build       →  sin errores de build
+[ ] GET  http://localhost:8000/health              →  {"status":"ok"}
+[ ] POST http://localhost:8000/session/start       →  devuelve session_id
+[ ] VIN "AK550-POC-0001"            →  menú de 6 opciones aparece
+[ ] Seleccionar "Paradas de motor"  →  primera pregunta Sí/No del árbol DDT
+[ ] Responder Sí/No varias veces   →  diagnóstico final con hipótesis
+[ ] POST /session/{id}/feedback     →  {"ok":true}
+[ ] GET  http://localhost:8000/metrics/summary     →  datos de métricas
+[ ] GET  http://localhost:8000/analytics/heatmap   →  matriz modelos×síntomas
+[ ] http://localhost:3000           →  chat funcional con sidebar de analítica
+```

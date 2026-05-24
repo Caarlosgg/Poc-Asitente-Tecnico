@@ -1,0 +1,134 @@
+erDiagram
+   VEHICLES ||--o{ SESSIONS : "vin"
+   VEHICLES ||--o{ SESSION_STATE : "vin"
+   SESSIONS ||--|| SESSION_STATE : "session_id"
+   SESSIONS ||--o{ MESSAGES : "session_id"
+   SESSIONS ||--o{ DECISION_LOGS : "session_id"
+   SESSIONS ||--o| FEEDBACK : "session_id (unique)"
+   KNOWLEDGE_CHUNKS ||--o{ EMBEDDING_JOBS : "chunk_id"
+
+   FAQS ||..o{ KNOWLEDGE_CHUNKS : "source_type=faq"
+   HISTORICAL_CASES ||..o{ KNOWLEDGE_CHUNKS : "source_type=historical_case"
+   DIAGNOSTIC_TREES ||..o{ KNOWLEDGE_CHUNKS : "source_type=tree_node"
+
+   VEHICLES {
+     varchar vin PK
+     varchar model
+     varchar family
+     int displacement_cc
+     varchar market
+     int model_year
+     timestamp created_at
+   }
+
+   FAQS {
+     bigint faq_id PK
+     varchar model
+     varchar category
+     text question
+     text answer
+     int usage_count
+     bool active
+     timestamp created_at
+     timestamp updated_at
+   }
+
+   DIAGNOSTIC_TREES {
+     varchar tree_id PK
+     varchar model
+     varchar symptom
+     int version
+     jsonb tree_json
+     bool active
+     timestamp created_at
+     timestamp updated_at
+   }
+
+   HISTORICAL_CASES {
+     varchar case_id PK
+     varchar model
+     varchar symptom_category
+     text case_text
+     varchar final_diagnosis
+     numeric base_confidence
+     timestamp created_at
+   }
+
+   SESSIONS {
+     uuid session_id PK
+     varchar vin FK
+     varchar model
+     varchar entry_point
+     varchar status
+     timestamp started_at
+     timestamp ended_at
+     int total_steps
+     varchar final_result
+     bool success
+   }
+
+   SESSION_STATE {
+     uuid session_id PK,FK
+     varchar vin FK
+     varchar model
+     varchar current_symptom
+     varchar current_node
+     jsonb state_json
+     timestamp updated_at
+   }
+
+   MESSAGES {
+     bigint message_id PK
+     uuid session_id FK
+     varchar role
+     text content
+     timestamp created_at
+   }
+
+   DECISION_LOGS {
+     bigint log_id PK
+     uuid session_id FK
+     varchar module_name
+     jsonb input_data
+     jsonb output_data
+     timestamp created_at
+   }
+
+   FEEDBACK {
+     bigint feedback_id PK
+     uuid session_id FK,UK
+     bool useful
+     text comment
+     timestamp created_at
+   }
+
+   KNOWLEDGE_CHUNKS {
+     bigint chunk_id PK
+     varchar source_type
+     varchar source_id
+     varchar model
+     varchar symptom_category
+     text text_chunk
+     vector embedding
+     tsvector lexical
+     numeric base_confidence
+     int chunk_index
+     varchar embedding_provider
+     varchar embedding_model
+     jsonb metadata
+     varchar embedding_status
+     timestamp created_at
+     timestamp updated_at
+   }
+
+   EMBEDDING_JOBS {
+     bigint job_id PK
+     bigint chunk_id FK
+     varchar provider
+     varchar model
+     varchar status
+     int attempts
+     text last_error
+     timestamp created_at
+     timestamp updated_at
+   }
